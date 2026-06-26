@@ -1,0 +1,140 @@
+# 3. Joint graph + feature-source graph fusion on ASL Citizen.
+# Run with: python scripts/train_nature_ablation.py --config configs1/nature_ablation/asl_citizen/02_dual_graph.yaml
+manifest: data/asl_citizen_skeleton_manifest.csv
+output_dir: runs/nature_ablation/asl_citizen/03_dual_graph
+image_height: 64
+sequence_length: 64
+model_type: skeleton
+model_variant: nature_3_dual_graph
+seed: 42
+repair_missing_keypoints: true
+repair_min_valid: 2
+
+batch_size: 32
+optimizer: adamw
+weight_decay: 3.0e-4
+dropout: 0.60
+label_smoothing: 0.10
+base_lr: 2.0e-4
+max_lr: 1.4e-3
+min_lr: 1.0e-5
+epochs: 140
+scheduler: cosine
+warmup_epochs: 10
+grad_clip_norm: 5.0
+balanced_sampling: true
+no_weight_decay_norm_bias: true
+attention_lr_scale: 1.0
+classifier_lr_scale: 1.4
+
+skeleton_hidden_channels: 256
+skeleton_blocks: 5
+skeleton_adjacency_hops: 2
+skeleton_dropout: 0.24
+skeleton_temporal_kernel: 7
+skeleton_temporal_dilations: [1, 2, 3]
+skeleton_adaptive_graph: true
+skeleton_edge_importance: true
+skeleton_adaptive_scale: 0.06
+skeleton_relation_graph: true
+skeleton_relation_scale: 0.03
+skeleton_relation_channels: 32
+skeleton_stc_attention: true
+skeleton_center_joints: true
+skeleton_scale_normalize: true
+skeleton_hand_weight: 1.35
+skeleton_include_absolute_xy: true
+skeleton_include_validity: true
+skeleton_include_temporal_position: true
+skeleton_include_root_motion: true
+skeleton_include_acceleration: true
+skeleton_pooling: avgmaxattn
+skeleton_part_pooling: true
+feature_layer_norm: true
+classifier_type: arcface
+logit_scale: 30.0
+classifier_margin: 0.12
+
+# Nature-inspired module 3: feature-source graph. This implies source gating.
+nature_feature_gating: true
+nature_adaptive_temporal: false
+nature_feature_source_graph: true
+nature_feature_gate_hidden_dim: 24
+nature_feature_gate_min: 0.20
+nature_source_graph_scale: 0.20
+
+center_loss:
+  enabled: true
+  weight: 0.003
+
+quality_filter:
+  enabled: true
+  min_valid_pose_frames: 8
+  splits: [train]
+
+ema:
+  enabled: true
+  decay: 0.997
+
+sam:
+  enabled: false
+  rho: 0.02
+  adaptive: false
+
+loss:
+  focal_gamma: 0.0
+
+contrastive_loss:
+  enabled: false
+  weight: 0.0
+  temperature: 0.08
+  start_epoch: 100
+  end_epoch: 140
+
+class_weighting:
+  enabled: false
+  beta: 0.999
+
+mixup:
+  enabled: true
+  alpha: 0.20
+  prob: 0.40
+  start_epoch: 1
+  end_epoch: 95
+
+eval_tta:
+  flip: true
+  scales: [0.95, 1.0, 1.05]
+
+model_soup:
+  enabled: true
+  top_k: 10
+  start_epoch: 80
+  promote_if_better: true
+
+augmentation:
+  enabled: true
+  scale: true
+  shift: true
+  noise: true
+  rotate: true
+  temporal_crop: true
+  flip: true
+  speed: true
+  time_mask: true
+  joint_mask: true
+  scale_min: 0.88
+  scale_max: 1.12
+  shift_max: 0.030
+  noise_std: 0.005
+  rotate_degrees: 8.0
+  temporal_crop_min_ratio: 0.84
+  temporal_crop_max_ratio: 1.0
+  flip_prob: 0.5
+  swap_sides_on_flip: true
+  speed_min_frames: 48
+  speed_max_frames: 76
+  time_mask_prob: 0.22
+  time_mask_max_ratio: 0.12
+  joint_mask_prob: 0.18
+  joint_mask_max_width: 6

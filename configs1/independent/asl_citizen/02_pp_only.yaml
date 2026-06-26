@@ -1,0 +1,123 @@
+manifest: data/asl_citizen_skeleton_manifest.csv
+output_dir: runs/ablations_independent/asl_citizen/05_pp_only
+image_height: 64
+sequence_length: 64
+model_type: skeleton
+seed: 42
+repair_missing_keypoints: true
+repair_min_valid: 2
+batch_size: 32
+optimizer: adamw
+weight_decay: 0.0003
+dropout: 0.6
+label_smoothing: 0.1
+base_lr: 0.0002
+max_lr: 0.0014
+min_lr: 1.0e-05
+epochs: 140
+scheduler: cosine
+warmup_epochs: 10
+grad_clip_norm: 5.0
+balanced_sampling: true
+no_weight_decay_norm_bias: true
+attention_lr_scale: 1.0
+classifier_lr_scale: 1.4
+skeleton_hidden_channels: 256
+skeleton_blocks: 5
+skeleton_adjacency_hops: 2
+skeleton_dropout: 0.24
+skeleton_temporal_kernel: 7
+skeleton_temporal_dilations:
+- 1
+skeleton_adaptive_graph: false
+skeleton_edge_importance: false
+skeleton_adaptive_scale: 0.06
+skeleton_relation_graph: false
+skeleton_relation_scale: 0.03
+skeleton_relation_channels: 32
+skeleton_stc_attention: true
+skeleton_center_joints: true
+skeleton_scale_normalize: true
+skeleton_hand_weight: 1.35
+skeleton_include_absolute_xy: false
+skeleton_include_validity: false
+skeleton_include_temporal_position: false
+skeleton_include_root_motion: false
+skeleton_include_acceleration: false
+skeleton_pooling: avgmaxattn
+skeleton_part_pooling: true
+feature_layer_norm: true
+classifier_type: arcface
+logit_scale: 30.0
+classifier_margin: 0.12
+center_loss:
+  enabled: true
+  weight: 0.003
+quality_filter:
+  enabled: true
+  min_valid_pose_frames: 8
+  splits:
+  - train
+ema:
+  enabled: true
+  decay: 0.997
+sam:
+  enabled: false
+  rho: 0.02
+  adaptive: false
+loss:
+  focal_gamma: 0.0
+contrastive_loss:
+  enabled: false
+  weight: 0.0
+  temperature: 0.08
+  start_epoch: 100
+  end_epoch: 140
+class_weighting:
+  enabled: false
+  beta: 0.999
+mixup:
+  enabled: true
+  alpha: 0.2
+  prob: 0.4
+  start_epoch: 1
+  end_epoch: 95
+eval_tta:
+  flip: true
+  scales:
+  - 0.95
+  - 1.0
+  - 1.05
+model_soup:
+  enabled: true
+  top_k: 10
+  start_epoch: 80
+  promote_if_better: true
+augmentation:
+  enabled: true
+  scale: true
+  shift: true
+  noise: true
+  rotate: true
+  temporal_crop: true
+  flip: true
+  speed: true
+  time_mask: true
+  joint_mask: true
+  scale_min: 0.88
+  scale_max: 1.12
+  shift_max: 0.03
+  noise_std: 0.005
+  rotate_degrees: 8.0
+  temporal_crop_min_ratio: 0.84
+  temporal_crop_max_ratio: 1.0
+  flip_prob: 0.5
+  swap_sides_on_flip: true
+  speed_min_frames: 48
+  speed_max_frames: 76
+  time_mask_prob: 0.22
+  time_mask_max_ratio: 0.12
+  joint_mask_prob: 0.18
+  joint_mask_max_width: 6
+skeleton_use_bone_features: false
+skeleton_use_motion_features: false

@@ -1,0 +1,5 @@
+dataset,order,variant,setting,config,output_dir,multi_source,adaptive_topology,relation_graph,multi_scale_temporal,part_pooling
+asl_citizen,1,base_stgcn,Base ST-GCN,configs1/ablations/asl_citizen/01_base_stgcn.yaml,runs/ablations/asl_citizen/01_base_stgcn,0,0,0,0,0
+asl_citizen,2,multi_source,+ Multi-source skeleton features,configs1/ablations/asl_citizen/02_multi_source.yaml,runs/ablations/asl_citizen/02_multi_source,1,0,0,0,0
+asl_citizen,3,adaptive_topology,+ Adaptive topology,configs1/ablations/asl_citizen/03_adaptive_topology.yaml,runs/ablations/asl_citizen/03_adaptive_topology,1,1,0,0,0
+asl_citizen,4,main_model,+ Part pooling (main model),configs1/asl_citizen_skeleton.yaml,runs/asl_citizen_skeleton_stgcn_v5_arcface,1,1,0,0,1

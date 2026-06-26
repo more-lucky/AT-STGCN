@@ -1,0 +1,12 @@
+torch>=2.0
+torchvision>=0.15
+opencv-python>=4.8
+mediapipe==0.10.14; python_version < "3.13"
+mediapipe>=0.10.35; python_version >= "3.13"
+numpy>=1.23,<2.0; python_version < "3.13"
+numpy>=2.0; python_version >= "3.13"
+pandas>=1.5
+scikit-learn>=1.2
+PyYAML>=6.0
+tqdm>=4.65
+matplotlib>=3.7

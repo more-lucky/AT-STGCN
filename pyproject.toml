@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=67", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "at-stgcn-sign-language"
+version = "0.1.0"
+description = "Skeleton-only AT-STGCN implementation for isolated sign language recognition."
+requires-python = ">=3.9"
+
+[tool.setuptools.packages.find]
+include = ["sl_atstgcn*"]

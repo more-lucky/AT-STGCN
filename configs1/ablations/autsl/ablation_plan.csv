@@ -1,0 +1,5 @@
+dataset,order,variant,setting,config,output_dir,multi_source,adaptive_topology,relation_graph,multi_scale_temporal,part_pooling
+autsl,1,base_stgcn,Base ST-GCN,configs1/ablations/autsl/01_base_stgcn.yaml,runs/ablations/autsl/01_base_stgcn,0,0,0,0,0
+autsl,2,multi_source,+ Multi-source skeleton features,configs1/ablations/autsl/02_multi_source.yaml,runs/ablations/autsl/02_multi_source,1,0,0,0,0
+autsl,3,adaptive_topology,+ Adaptive topology,configs1/ablations/autsl/03_adaptive_topology.yaml,runs/ablations/autsl/03_adaptive_topology,1,1,0,0,0
+autsl,4,main_model,+ Part pooling (main model),configs1/autsl_skeleton.yaml,runs/autsl_skeleton_stgcn_v5_arcface,1,1,0,0,1
